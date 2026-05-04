@@ -1,0 +1,144 @@
+{
+  "guild": {
+    "name": "Kurogane",
+    "discord": "https://discord.gg/kurogane",
+    "description": "Uma guilda forjada na disciplina e no aço. Buscamos a excelência em combate e a maestria em todas as artes de Toram Online."
+  },
+  "members": [
+    {
+      "id": "1",
+      "name": "Sieg",
+      "role": "Lider",
+      "class": "Samurai",
+      "roleType": "DPS",
+      "quote": "O aço só é temperado sob extrema pressão.",
+      "joinDate": "2 anos",
+      "records": { "type": "Damage", "value": "12.500.000", "skill": "Tenryu Ransei" },
+      "colors": { "primary": "#dc2626", "secondary": "#450a0a" },
+      "images": { "main": "https://raw.githubusercontent.com/the-deys/storage/main/sieg.png" }
+    },
+    {
+      "id": "2",
+      "name": "Ryu",
+      "role": "Lider",
+      "class": "Dual sword",
+      "roleType": "DPS",
+      "quote": "Rápido como o vento, silencioso como a floresta.",
+      "joinDate": "2 anos",
+      "records": { "type": "Damage", "value": "10.200.000", "skill": "Garyou Tensei" },
+      "colors": { "primary": "#2563eb", "secondary": "#1e3a8a" },
+      "images": { "main": "https://raw.githubusercontent.com/the-deys/storage/main/ryu.png" }
+    },
+    {
+      "id": "3",
+      "name": "Cailoop",
+      "role": "Lider",
+      "class": "Samurai",
+      "roleType": "DPS",
+      "quote": "A lâmina é uma extensão da alma.",
+      "joinDate": "1.5 anos",
+      "records": { "type": "Damage", "value": "9.850.000", "skill": "Zantei Settetsu" },
+      "colors": { "primary": "#9333ea", "secondary": "#581c87" },
+      "images": { "main": "https://raw.githubusercontent.com/the-deys/storage/main/cailoop.png" }
+    },
+    {
+      "id": "4",
+      "name": "Jaburu",
+      "role": "Vice lider",
+      "class": "Tank",
+      "roleType": "Tank",
+      "quote": "Ninguém passa por mim.",
+      "joinDate": "1 ano",
+      "colors": { "primary": "#16a34a", "secondary": "#064e3b" },
+      "images": { "main": "https://raw.githubusercontent.com/the-deys/storage/main/jaburu.png" }
+    },
+    {
+      "id": "5",
+      "name": "Shiro",
+      "role": "Membro",
+      "class": "One sword",
+      "roleType": "DPS",
+      "quote": "A pureza do corte é o meu caminho.",
+      "joinDate": "6 meses",
+      "records": { "type": "Damage", "value": "7.400.000", "skill": "Tenryu Ransei" },
+      "colors": { "primary": "#f8fafc", "secondary": "#475569" },
+      "images": { "main": "https://raw.githubusercontent.com/the-deys/storage/main/shiro.png" }
+    },
+    {
+      "id": "6",
+      "name": "Hattori",
+      "role": "Membro",
+      "class": "Dual sword",
+      "roleType": "DPS",
+      "joinDate": "4 meses",
+      "quote": "Duas lâminas, um único destino.",
+      "records": { "type": "Damage", "value": "8.900.000", "skill": "Lunar Misery" },
+      "colors": { "primary": "#ea580c", "secondary": "#7c2d12" },
+      "images": { "main": "https://raw.githubusercontent.com/the-deys/storage/main/hattori.png" }
+    },
+    {
+      "id": "7",
+      "name": "Kaguya",
+      "role": "Membro",
+      "class": "Mago",
+      "roleType": "Support",
+      "joinDate": "8 meses",
+      "quote": "A luz da lua guia meu poder.",
+      "colors": { "primary": "#db2777", "secondary": "#701a75" },
+      "images": { "main": "https://raw.githubusercontent.com/the-deys/storage/main/kaguya.png" }
+    },
+    {
+      "id": "8",
+      "name": "Zoro",
+      "role": "Membro",
+      "class": "Halberd",
+      "roleType": "DPS",
+      "joinDate": "1 ano",
+      "records": { "type": "Damage", "value": "11.100.000", "skill": "Shut Out" },
+      "colors": { "primary": "#15803d", "secondary": "#052e16" },
+      "images": { "main": "https://raw.githubusercontent.com/the-deys/storage/main/zoro.png" }
+    },
+    {
+      "id": "9",
+      "name": "Yuki",
+      "role": "Synthetisist",
+      "class": "Synthesis",
+      "roleType": "Farmer",
+      "joinDate": "1.2 anos",
+      "quote": "A alquimia é a arte da transformação.",
+      "colors": { "primary": "#0ea5e9", "secondary": "#0c4a6e" },
+      "images": { "main": "https://raw.githubusercontent.com/the-deys/storage/main/yuki.png" }
+    },
+    {
+      "id": "10",
+      "name": "Goro",
+      "role": "Ferreiro",
+      "class": "Knuckles",
+      "roleType": "DPS",
+      "joinDate": "2 anos",
+      "quote": "O martelo nunca descansa.",
+      "colors": { "primary": "#844707", "secondary": "#451a03" },
+      "images": { "main": "https://raw.githubusercontent.com/the-deys/storage/main/goro.png" }
+    }
+  ],
+  "gallery": [
+    {
+      "id": "g1",
+      "title": "Primeira Guild Raid",
+      "date": "15/04/2026",
+      "imageUrl": "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=1000&auto=format&fit=crop",
+      "description": "Nossa primeira vitória contra o Boss Event."
+    }
+  ],
+  "food": [
+    { "id": "1", "name": "Yakitori (STR +10)", "code": "1010101", "description": "Aumenta força bruta para atacantes físicos." }
+  ],
+  "leveling": [
+    { "levelRange": "1-50", "location": "Rakau Plains", "description": "Focar em mobs pequenos." }
+  ],
+  "tutorials": [
+    { "id": "blacksmith", "title": "Mestre da Forja", "content": "..." }
+  ],
+  "glossary": [],
+  "buildTips": []
+}
