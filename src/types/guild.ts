@@ -18,7 +18,7 @@ export interface GuildMember {
     secondary: string;
     text?: string;
   };
-  effects?: string[];
+  effects?: (string | { type: string, emojis: string[] })[];
   images: {
     main: string;
     weapon?: string;

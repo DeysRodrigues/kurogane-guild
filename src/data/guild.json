@@ -7,118 +7,139 @@
   "members": [
     {
       "id": "1",
-      "name": "Sieg",
-      "role": "Lider",
+      "name": "Siegweiss",
+      "role": "Vice lider",
       "class": "Samurai",
+      "subWeapon": "/",
+      "favoriteSkills": ["Divine Slash", "Shadowless Slash", "Pulse Blade"],
       "roleType": "DPS",
-      "quote": "O aço só é temperado sob extrema pressão.",
-      "joinDate": "2 anos",
-      "records": { "type": "Damage", "value": "12.500.000", "skill": "Tenryu Ransei" },
+      "quote": "Sua vida acaba na minha lâmina",
+      "joinDate": "8 anos",
+      "records": { "type": "Damage", "value": "13.000.000", "skill": "Divine Slash" },
       "colors": { "primary": "#dc2626", "secondary": "#450a0a" },
-      "images": { "main": "https://raw.githubusercontent.com/the-deys/storage/main/sieg.png" }
+      "effects": [{ "type": "emojis", "emojis": ["⚔️", "🔥", "👺", "🏮"] }],
+      "images": { "main": "/images/photo-siegweiss-samurai.png" }
     },
     {
       "id": "2",
       "name": "Ryu",
       "role": "Lider",
       "class": "Dual sword",
+      "subWeapon": "Dual Swords",
       "roleType": "DPS",
       "quote": "Rápido como o vento, silencioso como a floresta.",
       "joinDate": "2 anos",
       "records": { "type": "Damage", "value": "10.200.000", "skill": "Garyou Tensei" },
       "colors": { "primary": "#2563eb", "secondary": "#1e3a8a" },
-      "images": { "main": "https://raw.githubusercontent.com/the-deys/storage/main/ryu.png" }
+      "effects": [{ "type": "emojis", "emojis": ["💨", "⚡", "🗡️", "🌌"] }],
+      "images": { "main": "/images/photo-ryu-dualsword.png" }
     },
     {
       "id": "3",
       "name": "Cailoop",
       "role": "Lider",
       "class": "Samurai",
+      "subWeapon": "Dagger",
       "roleType": "DPS",
       "quote": "A lâmina é uma extensão da alma.",
       "joinDate": "1.5 anos",
       "records": { "type": "Damage", "value": "9.850.000", "skill": "Zantei Settetsu" },
       "colors": { "primary": "#9333ea", "secondary": "#581c87" },
-      "images": { "main": "https://raw.githubusercontent.com/the-deys/storage/main/cailoop.png" }
+      "effects": [{ "type": "emojis", "emojis": ["🌸", "✨", "💜", "🌙"] }],
+      "images": { "main": "/images/photo-cailoop-samurai.png" }
     },
     {
       "id": "4",
       "name": "Jaburu",
       "role": "Vice lider",
       "class": "Tank",
+      "subWeapon": "Shield",
       "roleType": "Tank",
       "quote": "Ninguém passa por mim.",
       "joinDate": "1 ano",
       "colors": { "primary": "#16a34a", "secondary": "#064e3b" },
-      "images": { "main": "https://raw.githubusercontent.com/the-deys/storage/main/jaburu.png" }
+      "effects": [{ "type": "emojis", "emojis": ["🛡️", "⛰️", "💪", "🌲"] }],
+      "images": { "main": "/images/photo-jaburu-tank.png" }
     },
     {
       "id": "5",
       "name": "Shiro",
       "role": "Membro",
       "class": "One sword",
+      "subWeapon": "Shield",
       "roleType": "DPS",
       "quote": "A pureza do corte é o meu caminho.",
       "joinDate": "6 meses",
       "records": { "type": "Damage", "value": "7.400.000", "skill": "Tenryu Ransei" },
       "colors": { "primary": "#f8fafc", "secondary": "#475569" },
-      "images": { "main": "https://raw.githubusercontent.com/the-deys/storage/main/shiro.png" }
+      "effects": [{ "type": "emojis", "emojis": ["❄️", "💎", "⚪", "⚔️"] }],
+      "images": { "main": "/images/photo-shiro-onesword.png" }
     },
     {
       "id": "6",
       "name": "Hattori",
       "role": "Membro",
       "class": "Dual sword",
+      "subWeapon": "Dual Swords",
       "roleType": "DPS",
       "joinDate": "4 meses",
       "quote": "Duas lâminas, um único destino.",
       "records": { "type": "Damage", "value": "8.900.000", "skill": "Lunar Misery" },
       "colors": { "primary": "#ea580c", "secondary": "#7c2d12" },
-      "images": { "main": "https://raw.githubusercontent.com/the-deys/storage/main/hattori.png" }
+      "effects": [{ "type": "emojis", "emojis": ["🧛", "🩸", "🌑", "🔪"] }],
+      "images": { "main": "/images/photo-hattori-dualsword.png" }
     },
     {
       "id": "7",
-      "name": "Kaguya",
+      "name": "Venushima",
       "role": "Membro",
-      "class": "Mago",
-      "roleType": "Support",
+      "class": "Knuckles",
+      "subWeapon": "Dagger",
+      "roleType": "DPS",
       "joinDate": "8 meses",
       "quote": "A luz da lua guia meu poder.",
       "colors": { "primary": "#db2777", "secondary": "#701a75" },
-      "images": { "main": "https://raw.githubusercontent.com/the-deys/storage/main/kaguya.png" }
+      "effects": [{ "type": "emojis", "emojis": ["🌸"] }],
+      "images": { "main": "/images/photo-venushima-knk.png" }
     },
     {
       "id": "8",
       "name": "Zoro",
       "role": "Membro",
       "class": "Halberd",
+      "subWeapon": "Dagger",
       "roleType": "DPS",
       "joinDate": "1 ano",
       "records": { "type": "Damage", "value": "11.100.000", "skill": "Shut Out" },
       "colors": { "primary": "#15803d", "secondary": "#052e16" },
-      "images": { "main": "https://raw.githubusercontent.com/the-deys/storage/main/zoro.png" }
+      "effects": [{ "type": "emojis", "emojis": ["🌪️", "🎋", "🏹", "🐲"] }],
+      "images": { "main": "/images/photo-zoro-halberd.png" }
     },
     {
       "id": "9",
       "name": "Yuki",
       "role": "Synthetisist",
       "class": "Synthesis",
+      "subWeapon": "Magic Device",
       "roleType": "Farmer",
       "joinDate": "1.2 anos",
       "quote": "A alquimia é a arte da transformação.",
       "colors": { "primary": "#0ea5e9", "secondary": "#0c4a6e" },
-      "images": { "main": "https://raw.githubusercontent.com/the-deys/storage/main/yuki.png" }
+      "effects": [{ "type": "emojis", "emojis": ["⚗️", "🧪", "💠", "🌟"] }],
+      "images": { "main": "/images/photo-yuki-synthesis.png" }
     },
     {
       "id": "10",
       "name": "Goro",
       "role": "Ferreiro",
       "class": "Knuckles",
+      "subWeapon": "Shield",
       "roleType": "DPS",
       "joinDate": "2 anos",
       "quote": "O martelo nunca descansa.",
       "colors": { "primary": "#844707", "secondary": "#451a03" },
-      "images": { "main": "https://raw.githubusercontent.com/the-deys/storage/main/goro.png" }
+      "effects": [{ "type": "emojis", "emojis": ["⚒️", "🌋", "💥", "📦"] }],
+      "images": { "main": "/images/photo-goro-knk.png" }
     }
   ],
   "gallery": [

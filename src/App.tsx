@@ -26,7 +26,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import type { GalleryItem } from './types/guild'
 
 function App() {
-  const { guild, leaders, others, food, leveling, tutorials, members, glossary, buildTips, gallery } = useGuildData()
+  const { guild, food, leveling, tutorials, members, glossary, buildTips, gallery } = useGuildData()
   const [activeTab, setActiveTab] = useState<'home' | 'wiki' | 'tutorials' | 'records' | 'gallery'>('home')
   const [wikiSubTab, setWikiSubTab] = useState<'food' | 'leveling' | 'glossary' | 'builds'>('food')
   const [filterClass, setFilterClass] = useState<string>('Todos')
@@ -57,15 +57,26 @@ function App() {
     return ['Todos', ...Array.from(new Set(categories))];
   }, [food])
 
-  const filteredLeaders = useMemo(() => {
-    if (filterClass === 'Todos') return leaders
-    return leaders.filter(m => m.class === filterClass)
-  }, [leaders, filterClass])
+  // Get all members sorted by hierarchy
+  const allSortedMembers = useMemo(() => {
+    const hierarchy = {
+      'Lider': 1,
+      'Vice lider': 2,
+      'Synthetisist': 3,
+      'Ferreiro': 4,
+      'Membro': 5
+    }
+    
+    const baseList = filterClass === 'Todos' 
+      ? members 
+      : members.filter(m => m.class === filterClass)
 
-  const filteredOthers = useMemo(() => {
-    if (filterClass === 'Todos') return others
-    return others.filter(m => m.class === filterClass)
-  }, [others, filterClass])
+    return [...baseList].sort((a, b) => {
+      const rankA = hierarchy[a.role as keyof typeof hierarchy] || 99
+      const rankB = hierarchy[b.role as keyof typeof hierarchy] || 99
+      return rankA - rankB
+    })
+  }, [members, filterClass])
 
   const filteredFood = useMemo(() => {
     if (filterFood === 'Todos') return food
@@ -319,7 +330,7 @@ function App() {
                     </motion.div>
 
                     <h1 
-                      className="relative z-10 text-4xl sm:text-6xl md:text-8xl lg:text-[10rem] font-black leading-[0.9] tracking-tighter uppercase italic"
+                      className="relative z-10 text-4xl sm:text-5xl md:text-7xl lg:text-[7.5rem] font-black leading-[0.9] tracking-tighter uppercase italic"
                     >
                       <motion.span 
                         initial={{ opacity: 0, x: -30 }}
@@ -373,51 +384,34 @@ function App() {
                 </div>
               </section>
 
-              {/* Leaders */}
-              {filteredLeaders.length > 0 && (
-                <section className="space-y-16 relative">
-                  <div className="flex items-center gap-8">
-                    <div className="flex flex-col">
-                      <h3 className="text-4xl font-black uppercase tracking-tighter italic whitespace-nowrap">
-                        Liderança
-                      </h3>
-                      <span className="text-[10px] font-serif text-red-500/60 mt-1 uppercase tracking-widest">指導者</span>
-                    </div>
-                    <div className="h-px flex-1 bg-gradient-to-r from-white/20 via-red-600/20 to-transparent" />
+              {/* Members List */}
+              <section className="space-y-16 relative">
+                <div className="flex items-center gap-8">
+                  <div className="flex flex-col">
+                    <h3 className="text-4xl font-black uppercase tracking-tighter italic whitespace-nowrap">
+                      Elite Kurogane
+                    </h3>
+                    <span className="text-[10px] font-serif text-red-500/60 mt-1 uppercase tracking-widest">ギルドメンバー</span>
                   </div>
-                  <div className="flex flex-wrap justify-center gap-12">
-                    {filteredLeaders.map(member => (
-                      <MemberCard key={member.id} member={member} isLeader />
-                    ))}
-                  </div>
-                </section>
-              )}
-
-              {/* Members */}
-              {filteredOthers.length > 0 && (
-                <section className="space-y-16 relative">
-                  <div className="flex items-center gap-8">
-                    <div className="flex flex-col">
-                      <h3 className="text-4xl font-black uppercase tracking-tighter italic whitespace-nowrap">
-                        Membros de Elite
-                      </h3>
-                      <span className="text-[10px] font-serif text-red-500/60 mt-1 uppercase tracking-widest">精鋭メンバー</span>
-                    </div>
-                    <div className="h-px flex-1 bg-gradient-to-r from-white/20 via-red-600/20 to-transparent" />
-                  </div>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 justify-items-center">
-                    {filteredOthers.map(member => (
-                      <MemberCard key={member.id} member={member} />
-                    ))}
-                  </div>
-                </section>
-              )}
-
-              {filteredLeaders.length === 0 && filteredOthers.length === 0 && (
-                <div className="py-20 text-center">
-                  <p className="text-white/20 uppercase font-black tracking-widest">Nenhum membro encontrado nesta classe.</p>
+                  <div className="h-px flex-1 bg-gradient-to-r from-white/20 via-red-600/20 to-transparent" />
                 </div>
-              )}
+                
+                {allSortedMembers.length > 0 ? (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 justify-items-center">
+                    {allSortedMembers.map(member => (
+                      <MemberCard 
+                        key={member.id} 
+                        member={member} 
+                        isLeader={member.role === 'Lider' || member.role === 'Vice lider'} 
+                      />
+                    ))}
+                  </div>
+                ) : (
+                  <div className="py-20 text-center">
+                    <p className="text-white/20 uppercase font-black tracking-widest">Nenhum membro encontrado nesta classe.</p>
+                  </div>
+                )}
+              </section>
             </motion.div>
           )}
 
