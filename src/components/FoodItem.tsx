@@ -4,18 +4,10 @@ import { copyToClipboard } from '../lib/utils';
 import { Copy, Check, Utensils } from 'lucide-react';
 
 export const FoodItem: React.FC<{ item: FoodItemType }> = ({ item }) => {
-  const [copied, setCopied] = useState(false);
-
-  const handleCopy = async () => {
-    const success = await copyToClipboard(item.code);
-    if (success) {
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    }
-  };
+  const codes = item.code.split(' | ');
 
   return (
-    <div className="flex flex-col sm:flex-row sm:items-center justify-between p-4 rounded-xl bg-white/5 border border-white/10 hover:border-[var(--accent)] transition-colors group gap-4">
+    <div className="flex flex-col p-4 rounded-xl bg-white/5 border border-white/10 hover:border-[var(--accent)] transition-colors group gap-4">
       <div className="flex items-center gap-4">
         <div className="p-3 rounded-lg bg-[var(--accent-bg)] text-[var(--accent)] shrink-0">
           <Utensils size={20} />
@@ -26,17 +18,38 @@ export const FoodItem: React.FC<{ item: FoodItemType }> = ({ item }) => {
         </div>
       </div>
       
-      <div className="flex items-center justify-between sm:justify-end gap-3 bg-black/20 sm:bg-transparent p-2 sm:p-0 rounded-lg">
-        <code className="px-3 py-1 rounded bg-black/30 text-[var(--accent)] font-mono text-xs md:text-sm border border-white/5">
-          {item.code}
-        </code>
-        <button
-          onClick={handleCopy}
-          className="p-2 rounded-lg bg-white/5 hover:bg-white/10 text-white/50 hover:text-white transition-all"
-        >
-          {copied ? <Check size={18} className="text-green-500" /> : <Copy size={18} />}
-        </button>
+      <div className="flex flex-wrap gap-2">
+        {codes.map((code, index) => (
+          <IndividualCode key={index} code={code} />
+        ))}
       </div>
+    </div>
+  );
+};
+
+const IndividualCode: React.FC<{ code: string }> = ({ code }) => {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = async () => {
+    const success = await copyToClipboard(code);
+    if (success) {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    }
+  };
+
+  return (
+    <div className="flex items-center gap-2 bg-black/40 p-1.5 pr-3 rounded-lg border border-white/5 hover:border-white/10 transition-all group/code">
+      <code className="px-2 py-0.5 text-[var(--accent)] font-mono text-xs md:text-sm">
+        {code}
+      </code>
+      <button
+        onClick={handleCopy}
+        className="p-1.5 rounded-md bg-white/5 hover:bg-white/10 text-white/30 hover:text-white transition-all"
+        title="Copiar código"
+      >
+        {copied ? <Check size={14} className="text-green-500" /> : <Copy size={14} />}
+      </button>
     </div>
   );
 };

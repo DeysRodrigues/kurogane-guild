@@ -63,7 +63,7 @@ export const MemberCard: React.FC<MemberCardProps> = ({ member, isLeader }) => {
         layout
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
-        whileHover={{ y: -10, transition: { duration: 0.2 } }}
+        whileHover={window.innerWidth > 768 ? { y: -10, transition: { duration: 0.2 } } : {}}
         ref={cardRef}
         className={cn(
           "relative group overflow-hidden rounded-2xl border transition-all shadow-xl",
@@ -97,8 +97,8 @@ export const MemberCard: React.FC<MemberCardProps> = ({ member, isLeader }) => {
 
           <div className="mt-6 flex flex-col items-center flex-1">
             <div className="relative mb-6">
-              <div className="absolute inset-0 -m-2 rounded-full border border-white/10 animate-[spin_10s_linear_infinite]" />
-              <div className="absolute inset-0 -m-4 rounded-full border border-white/5 animate-[spin_15s_linear_infinite_reverse]" />
+              <div className="absolute inset-0 -m-2 rounded-full border border-white/10 animate-[spin_10s_linear_infinite] hidden md:block" />
+              <div className="absolute inset-0 -m-4 rounded-full border border-white/5 animate-[spin_15s_linear_infinite_reverse] hidden md:block" />
               <div className="relative w-36 h-36 rounded-full border-2 border-white/20 overflow-hidden shadow-2xl">
                 <img 
                   src={member.images.main} 
@@ -118,7 +118,12 @@ export const MemberCard: React.FC<MemberCardProps> = ({ member, isLeader }) => {
           <div className="mt-auto pt-4">
             <button 
               onClick={() => setIsModalOpen(true)}
-              className="w-full py-2.5 rounded-xl bg-white/10 hover:bg-white/20 border border-white/10 backdrop-blur-md transition-all flex items-center justify-center gap-2 group/btn"
+              className={cn(
+                "w-full py-2.5 rounded-xl border backdrop-blur-md transition-all flex items-center justify-center gap-2 group/btn",
+                member.colors.primary === "#ffffff" 
+                  ? "bg-white text-black border-black/10 hover:bg-zinc-200" 
+                  : "bg-white/10 text-white border-white/10 hover:bg-white/20"
+              )}
             >
               <span className="text-xs font-bold uppercase tracking-widest">Ver Perfil</span>
               <Maximize2 size={14} className="group-hover/btn:scale-125 transition-transform" />
@@ -154,7 +159,7 @@ export const MemberCard: React.FC<MemberCardProps> = ({ member, isLeader }) => {
               <div className="flex flex-col md:flex-row h-full">
                 {/* PARTE 1: Imagem e Cabeçalho Principal */}
                 <div className="w-full md:w-[45%] p-5 md:p-12 flex flex-col items-center justify-center border-b md:border-b-0 md:border-r border-white/5 bg-gradient-to-b from-white/10 to-transparent relative overflow-hidden shrink-0">
-                  <div className="absolute inset-0 pointer-events-none">
+                  <div className="absolute inset-0 pointer-events-none hidden md:block">
                     {member.effects?.map((effect, idx) => {
                         if (typeof effect === 'object' && effect.type === 'emojis') {
                           return <FloatingEmojisEffect key={idx} emojis={effect.emojis} color={member.colors.primary} />;
@@ -165,20 +170,19 @@ export const MemberCard: React.FC<MemberCardProps> = ({ member, isLeader }) => {
                   
                   <div className="relative z-10 w-full max-w-[260px] md:max-w-none aspect-square rounded-2xl overflow-hidden border border-white/10 shadow-2xl mb-4 md:mb-6">
                     <img src={member.images.main} alt={member.name} loading="lazy" className="w-full h-full object-cover" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent md:hidden" />
-                    
-                    {/* Nome e Função sobrepostos apenas no mobile */}
-                    <div className="absolute bottom-4 left-4 right-4 md:hidden">
-                       <span className="px-2 py-0.5 rounded-full text-[8px] font-black uppercase tracking-widest bg-white/10 backdrop-blur-md border border-white/20 mb-1 inline-block" style={{ color: member.colors.primary }}>
-                          {member.role}
-                       </span>
-                       <h2 className="text-3xl font-black text-white tracking-tighter uppercase italic drop-shadow-lg">
-                          {member.name}
-                       </h2>
-                    </div>
                   </div>
 
-                  <div className="hidden md:block w-full space-y-4">
+                  <div className="w-full space-y-4">
+                     {/* Nome e Função no Mobile (Abaixo da foto) */}
+                     <div className="md:hidden space-y-2 mb-4">
+                        <span className="px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest bg-white/5 border border-white/10 inline-block" style={{ color: member.colors.primary }}>
+                          {member.role}
+                        </span>
+                        <h2 className="text-4xl font-black text-white tracking-tighter uppercase italic">
+                          {member.name}
+                        </h2>
+                     </div>
+
                      <div className="flex justify-between items-center p-3 rounded-xl bg-white/5 border border-white/5">
                         <span className="text-[10px] font-black uppercase tracking-widest text-white/40">Função</span>
                         <span className={cn("px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-widest border", getRoleBadgeColor(member.roleType))}>
@@ -268,7 +272,10 @@ export const MemberCard: React.FC<MemberCardProps> = ({ member, isLeader }) => {
                       <button 
                         onClick={exportCard}
                         className="w-full sm:w-auto px-8 py-3 rounded-xl font-black uppercase tracking-widest text-[10px] flex items-center justify-center gap-2 transition-all hover:brightness-110 border border-white/10 shadow-lg"
-                        style={{ backgroundColor: member.colors.primary, color: 'white' }}
+                        style={{ 
+                          backgroundColor: member.colors.primary, 
+                          color: member.colors.primary === "#ffffff" ? "#000000" : "#ffffff" 
+                        }}
                       >
                         <Copy size={14} /> Copiar Card
                       </button>
