@@ -8,6 +8,7 @@ import {
   ScrollText, 
   Trophy, 
   Menu, 
+  Image as ImageIcon,
   X as CloseIcon 
 } from 'lucide-react';
 import { cn } from '../../lib/utils';
@@ -20,6 +21,7 @@ interface HeaderProps {
 const navItems = [
   { path: '/', label: 'Home', icon: LayoutDashboard },
   { path: '/wiki', label: 'Wiki', icon: BookOpen },
+  { path: '/gallery', label: 'Galeria', icon: ImageIcon },
   { path: '/tutorials', label: 'Tutoriais', icon: ScrollText },
   { path: '/records', label: 'Records', icon: Trophy },
 ];

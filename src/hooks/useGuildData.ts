@@ -12,6 +12,7 @@ export function useGuildData() {
     food: data.food,
     leveling: data.leveling,
     tutorials: data.tutorials,
+    crystas: data.crystas,
     glossary: data.glossary,
     buildTips: data.buildTips,
     gallery: data.gallery,

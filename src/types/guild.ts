@@ -1,11 +1,11 @@
 export interface GuildMember {
   id: string;
   name: string;
-  role: 'Lider' | 'Vice lider' | 'Synthetisist' | 'Ferreiro' | 'Membro';
-  class: string;
+  role: string;
+  class: string | string[];
   subWeapon?: string;
   favoriteSkills?: string[];
-  roleType?: 'DPS' | 'Tank' | 'Support' | 'Farmer';
+  roleType?: string;
   records?: {
     type: 'Damage';
     value: string;
@@ -45,6 +45,12 @@ export interface Tutorial {
   content: string;
 }
 
+export interface Crysta {
+  name: string;
+  type: 'Weapon' | 'Armor' | 'Additional' | 'Special' | 'Enhancer' | 'Normal';
+  description?: string;
+}
+
 export interface GlossaryItem {
   term: string;
   definition: string;
@@ -74,6 +80,7 @@ export interface GuildData {
   food: FoodItem[];
   leveling: LevelingRange[];
   tutorials: Tutorial[];
+  crystas?: Crysta[];
   glossary: GlossaryItem[];
   buildTips: BuildTip[];
   gallery: GalleryItem[];

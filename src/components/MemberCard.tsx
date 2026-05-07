@@ -12,10 +12,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 interface MemberCardProps {
   member: GuildMember;
-  isLeader?: boolean;
 }
 
-export const MemberCard: React.FC<MemberCardProps> = ({ member, isLeader }) => {
+export const MemberCard: React.FC<MemberCardProps> = ({ member }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
 
@@ -40,21 +39,37 @@ export const MemberCard: React.FC<MemberCardProps> = ({ member, isLeader }) => {
     }
   };
 
-  const getClassIcon = (className: string) => {
-    switch(className.toLowerCase()) {
-      case 'mago': return '魔';
-      case 'samurai': return '侍';
-      case 'halberd': return '矛';
-      case 'knuckles': return '拳';
-      case 'tank': return '盾';
-      case 'one sword': return '剣';
-      case 'dual sword': return '双';
-      case 'arqueiro': return '弓';
-      case 'synthesis': return '煉';
-      case 'ferreiro': return '鍛';
-      default: return '◈';
+  const getClassIcon = (className: string | string[]) => {
+    const getIcon = (name: string) => {
+      switch(name.toLowerCase()) {
+        case 'mago': return '魔';
+        case 'samurai': return '侍';
+        case 'halberd': return '矛';
+        case 'knuckles': return '拳';
+        case 'tank': return '盾';
+        case 'one sword': return '剣';
+        case 'dual sword': return '双';
+        case 'arqueiro': return '弓';
+        case 'synthesis': return '煉';
+        case 'ferreiro': return '鍛';
+        default: return '◈';
+      }
+    };
+
+    if (Array.isArray(className)) {
+      return className.map(c => getIcon(c)).join(' ');
     }
+    return getIcon(className);
   };
+
+  const getClassNameDisplay = (className: string | string[]) => {
+    if (Array.isArray(className)) {
+      return className.join(' / ');
+    }
+    return className;
+  };
+
+  const isLeaderRole = member.role.toLowerCase().includes('lider');
 
   return (
     <>
@@ -67,7 +82,8 @@ export const MemberCard: React.FC<MemberCardProps> = ({ member, isLeader }) => {
         ref={cardRef}
         className={cn(
           "relative group overflow-hidden rounded-2xl border transition-all shadow-xl",
-          isLeader ? "w-full max-w-[280px] sm:w-72 h-[420px] border-white/20" : "w-full max-w-[260px] sm:w-64 h-[380px] border-white/10"
+          "w-full max-w-[280px] sm:w-72 h-[420px]",
+          isLeaderRole ? "border-white/40 shadow-white/5" : "border-white/10"
         )}
         style={{
           background: `linear-gradient(180deg, ${member.colors.secondary} 0%, ${member.colors.primary} 100%)`,
@@ -104,14 +120,14 @@ export const MemberCard: React.FC<MemberCardProps> = ({ member, isLeader }) => {
                   src={member.images.main} 
                   alt={member.name} 
                   loading="lazy"
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                  className="w-full h-full object-cover object-[center_15%] group-hover:scale-110 transition-transform duration-700"
                 />
               </div>
             </div>
             <h3 className="text-xl font-black tracking-tighter uppercase italic">{member.name}</h3>
             <div className="flex items-center gap-2 mt-1 px-3 py-1 rounded-full bg-black/30 border border-white/10">
               <span className="text-xs font-serif text-white/80">{getClassIcon(member.class)}</span>
-              <span className="text-[10px] font-bold uppercase tracking-widest">{member.class}</span>
+              <span className="text-[10px] font-bold uppercase tracking-widest">{getClassNameDisplay(member.class)}</span>
             </div>
           </div>
 
@@ -120,9 +136,7 @@ export const MemberCard: React.FC<MemberCardProps> = ({ member, isLeader }) => {
               onClick={() => setIsModalOpen(true)}
               className={cn(
                 "w-full py-2.5 rounded-xl border backdrop-blur-md transition-all flex items-center justify-center gap-2 group/btn",
-                member.colors.primary === "#ffffff" 
-                  ? "bg-white text-black border-black/10 hover:bg-zinc-200" 
-                  : "bg-white/10 text-white border-white/10 hover:bg-white/20"
+                "bg-white/10 text-white border-white/10 hover:bg-white/20"
               )}
             >
               <span className="text-xs font-bold uppercase tracking-widest">Ver Perfil</span>
@@ -169,7 +183,7 @@ export const MemberCard: React.FC<MemberCardProps> = ({ member, isLeader }) => {
                   </div>
                   
                   <div className="relative z-10 w-full max-w-[260px] md:max-w-none aspect-square rounded-2xl overflow-hidden border border-white/10 shadow-2xl mb-4 md:mb-6">
-                    <img src={member.images.main} alt={member.name} loading="lazy" className="w-full h-full object-cover" />
+                    <img src={member.images.main} alt={member.name} loading="lazy" className="w-full h-full object-cover object-[center_15%]" />
                   </div>
 
                   <div className="w-full space-y-4">
@@ -222,13 +236,13 @@ export const MemberCard: React.FC<MemberCardProps> = ({ member, isLeader }) => {
                        <span className="text-[10px] font-bold text-white/20 uppercase tracking-[0.2em]">{member.joinDate} na Guilda</span>
                        <div className="flex items-center gap-2 text-sm font-bold text-white/40">
                         <span className="font-serif text-white/60">{getClassIcon(member.class)}</span>
-                        <span className="uppercase tracking-tighter">{member.class}</span>
+                        <span className="uppercase tracking-tighter">{getClassNameDisplay(member.class)}</span>
                       </div>
                     </div>
 
                     <div className="hidden md:flex items-center gap-2 text-2xl font-bold text-white/40 mb-8">
                       <span className="font-serif text-white/60">{getClassIcon(member.class)}</span>
-                      <span className="uppercase tracking-tighter">{member.class}</span>
+                      <span className="uppercase tracking-tighter">{getClassNameDisplay(member.class)}</span>
                     </div>
 
                     <div className="space-y-6 md:space-y-8">
@@ -274,7 +288,7 @@ export const MemberCard: React.FC<MemberCardProps> = ({ member, isLeader }) => {
                         className="w-full sm:w-auto px-8 py-3 rounded-xl font-black uppercase tracking-widest text-[10px] flex items-center justify-center gap-2 transition-all hover:brightness-110 border border-white/10 shadow-lg"
                         style={{ 
                           backgroundColor: member.colors.primary, 
-                          color: member.colors.primary === "#ffffff" ? "#000000" : "#ffffff" 
+                          color: "white" 
                         }}
                       >
                         <Copy size={14} /> Copiar Card
