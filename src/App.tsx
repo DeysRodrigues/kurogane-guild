@@ -1,5 +1,5 @@
-import { Suspense, lazy } from 'react'
-import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
+import { Suspense, lazy, useEffect } from 'react'
+import { HashRouter, Routes, Route, useLocation, Navigate } from 'react-router-dom'
 import { useGuildData } from './hooks/useGuildData'
 import { motion, AnimatePresence } from 'framer-motion'
 import { 
@@ -16,7 +16,16 @@ const Home = lazy(() => import('./pages/Home'))
 const Wiki = lazy(() => import('./pages/Wiki'))
 const Gallery = lazy(() => import('./pages/Gallery'))
 const Tutorials = lazy(() => import('./pages/Tutorials'))
-const Records = lazy(() => import('./pages/Records'))
+
+function ScrollToTop() {
+  const { pathname } = useLocation()
+  
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [pathname])
+  
+  return null
+}
 
 function AppContent() {
   const { guild } = useGuildData()
@@ -24,6 +33,7 @@ function AppContent() {
 
   return (
     <div className="min-h-screen bg-[#050506] text-white selection:bg-[var(--accent)] selection:text-white font-sans overflow-x-hidden">
+      <ScrollToTop />
       {/* Background Decor */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden select-none">
         {/* Orbs */}
@@ -35,7 +45,7 @@ function AppContent() {
 
         {/* Large Background Kanji */}
         <div className="absolute top-1/4 -left-20 text-[20rem] font-serif font-black text-white/[0.02] -rotate-12 leading-none">
-          武士
+          図書
         </div>
         
         {/* Japanese Shadow Dragon */}
@@ -50,7 +60,7 @@ function AppContent() {
         />
 
         <div className="absolute bottom-1/4 -right-20 text-[25rem] font-serif font-black text-white/[0.01] rotate-12 leading-none">
-          名誉
+          知識
         </div>
 
         {/* Floating Particles/Petals */}
@@ -94,7 +104,8 @@ function AppContent() {
               <Route path="/wiki" element={<Wiki />} />
               <Route path="/gallery" element={<Gallery />} />
               <Route path="/tutorials" element={<Tutorials />} />
-              <Route path="/records" element={<Records />} />
+              <Route path="/tutorials/:id" element={<Tutorials />} />
+              <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
           </AnimatePresence>
         </Suspense>
@@ -104,15 +115,15 @@ function AppContent() {
         <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-12">
           <div className="flex flex-col items-center md:items-start gap-4">
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-lg bg-white text-black flex items-center justify-center font-black italic text-sm">K</div>
+              <div className="w-8 h-8 rounded-lg bg-white text-black flex items-center justify-center font-black italic text-sm">L</div>
               <span className="font-black tracking-tighter uppercase italic text-xl">{guild.name}</span>
             </div>
-            <p className="text-white/20 text-xs font-black uppercase tracking-[0.2em]">Honor • Strength • Unity</p>
+            <p className="text-white/20 text-xs font-black uppercase tracking-[0.2em]">Explore • Learn • Master</p>
           </div>
           
           <div className="flex flex-col items-center gap-2">
              <p className="text-white/40 text-[10px] font-black uppercase tracking-[0.3em]">
-               &copy; 2026 Kurogane. Created by <span className="text-white">venushima</span>
+               &copy; 2026 Toram Library. Created by <span className="text-white">venushima</span>
              </p>
              <div className="h-px w-20 bg-gradient-to-r from-transparent via-white/10 to-transparent" />
           </div>
@@ -136,9 +147,9 @@ function AppContent() {
 
 function App() {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <AppContent />
-    </BrowserRouter>
+    </HashRouter>
   )
 }
 

@@ -23,7 +23,6 @@ const navItems = [
   { path: '/wiki', label: 'Wiki', icon: BookOpen },
   { path: '/gallery', label: 'Galeria', icon: ImageIcon },
   { path: '/tutorials', label: 'Tutoriais', icon: ScrollText },
-  { path: '/records', label: 'Records', icon: Trophy },
 ];
 
 export const Header: React.FC<HeaderProps> = ({ guildName, discordUrl }) => {
@@ -39,9 +38,9 @@ export const Header: React.FC<HeaderProps> = ({ guildName, discordUrl }) => {
         >
           <Link to="/" className="flex items-center gap-4 group">
             <div className="relative">
-              <div className="absolute -inset-1 bg-gradient-to-r from-purple-600 to-blue-600 rounded-xl blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
+              <div className="absolute -inset-1 bg-gradient-to-r from-red-600 to-zinc-600 rounded-xl blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
               <div className="relative w-12 h-12 rounded-xl bg-black flex items-center justify-center font-black text-2xl border border-white/10 italic">
-                K
+                L
               </div>
             </div>
             <div className="relative flex items-center gap-4">
@@ -52,14 +51,14 @@ export const Header: React.FC<HeaderProps> = ({ guildName, discordUrl }) => {
                   style={{ fontFamily: "'New Tegomin', serif" }}
                 >
                   {guildName}
-                  <span className="text-xs md:text-sm not-italic font-serif text-white/20 tracking-normal hidden xs:inline-block">黒鉄</span>
+                  <span className="text-xs md:text-sm not-italic font-serif text-white/20 tracking-normal hidden xs:inline-block">図書館</span>
                 </h1>
-                <span className="text-[10px] text-white/30 uppercase tracking-[0.3em] font-bold">Oficial Website</span>
+                <span className="text-[10px] text-white/30 uppercase tracking-[0.3em] font-bold">Aventureiros Errantes</span>
               </div>
               
               <div className="w-8 h-8 flex items-center justify-center border-2 border-red-600/40 rounded-sm -rotate-12 bg-red-600/5 select-none shrink-0">
                 <span className="text-[8px] font-serif text-red-500 font-black leading-[1.1] text-center">
-                  黒<br/>鉄
+                  図<br/>書
                 </span>
               </div>
             </div>
@@ -71,6 +70,7 @@ export const Header: React.FC<HeaderProps> = ({ guildName, discordUrl }) => {
             <NavLink
               key={item.path}
               to={item.path}
+              end={item.path === '/'}
               className={({ isActive }) => cn(
                 "flex items-center gap-2 px-6 py-2.5 rounded-xl text-xs font-black uppercase tracking-widest transition-all relative overflow-hidden group",
                 isActive 
@@ -123,6 +123,7 @@ export const Header: React.FC<HeaderProps> = ({ guildName, discordUrl }) => {
                 <NavLink
                   key={item.path}
                   to={item.path}
+                  end={item.path === '/'}
                   onClick={() => setIsMenuOpen(false)}
                   className={({ isActive }) => cn(
                     "flex items-center gap-4 w-full p-4 rounded-2xl text-sm font-black uppercase tracking-widest transition-all",
