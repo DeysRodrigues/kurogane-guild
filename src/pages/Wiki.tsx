@@ -8,10 +8,9 @@ const FoodItem = lazy(() => import('../components/FoodItem').then(m => ({ defaul
 const LevelingGuide = lazy(() => import('../components/LevelingGuide').then(m => ({ default: m.LevelingGuide })))
 
 export default function Wiki() {
-  const { food, leveling, glossary, buildTips, crystas } = useGuildData()
-  const [wikiSubTab, setWikiSubTab] = useState<'food' | 'leveling' | 'glossary' | 'builds' | 'crystas'>('crystas')
+  const { food, leveling, glossary, buildTips } = useGuildData()
+  const [wikiSubTab, setWikiSubTab] = useState<'food' | 'leveling' | 'glossary' | 'builds' | 'mobs'>('food')
   const [filterFood, setFilterFood] = useState<string>('Todos')
-  const [filterCrysta, setFilterCrysta] = useState<string>('Todos')
   const [searchTerm, setSearchTerm] = useState('')
 
   // Get unique food categories
@@ -23,27 +22,10 @@ export default function Wiki() {
     return ['Todos', ...Array.from(new Set(categories))];
   }, [food])
 
-  // Get unique crysta types
-  const crystaTypes = useMemo(() => {
-    if (!crystas) return ['Todos'];
-    const types = crystas.map(c => c.type);
-    return ['Todos', ...Array.from(new Set(types))];
-  }, [crystas])
-
   const filteredFood = useMemo(() => {
     if (filterFood === 'Todos') return food
     return food.filter(f => f.name.startsWith(filterFood))
   }, [food, filterFood])
-
-  const filteredCrystas = useMemo(() => {
-    if (!crystas) return []
-    const term = searchTerm.toLowerCase().trim()
-    return crystas.filter(c => {
-      const matchesType = filterCrysta === 'Todos' || c.type === filterCrysta
-      const matchesSearch = !term || c.name.toLowerCase().includes(term)
-      return matchesType && matchesSearch
-    })
-  }, [crystas, filterCrysta, searchTerm])
 
   return (
     <motion.div
@@ -58,21 +40,21 @@ export default function Wiki() {
           <div className="inline-flex p-3 md:p-4 rounded-2xl md:rounded-3xl bg-red-500/10 text-red-500 border border-red-500/20">
             <BookOpen size={24} className="md:w-8 md:h-8" />
           </div>
-          <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tighter italic leading-none">Wiki Kurogane</h2>
-          <p className="text-white/40 text-sm md:text-base font-medium">Conhecimento compartilhado pela guilda.</p>
+          <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tighter italic leading-none">Toram Library Wiki</h2>
+          <p className="text-white/40 text-sm md:text-base font-medium">Conhecimento coletivo sobre o mundo de Toram.</p>
         </div>
 
         <div className="flex flex-wrap gap-1.5 md:gap-2 p-1 md:p-1.5 bg-white/5 rounded-xl md:rounded-2xl border border-white/5 backdrop-blur-md">
           {[
-            { id: 'crystas', label: 'Xtais', icon: Gem },
             { id: 'food', label: 'Comidas', icon: Utensils },
-            { id: 'leveling', label: 'Upar', icon: Users },
-            { id: 'glossary', label: 'Glossário', icon: ScrollText },
+            { id: 'mobs', label: 'Mobs', icon: Users },
+            { id: 'leveling', label: 'Upar', icon: ScrollText },
+            { id: 'glossary', label: 'Glossário', icon: BookOpen },
             { id: 'builds', label: 'Builds', icon: Hammer },
           ].map((tab) => (
             <button
               key={tab.id}
-              onClick={() => setWikiSubTab(tab.id as 'food' | 'leveling' | 'glossary' | 'builds' | 'crystas')}
+              onClick={() => setWikiSubTab(tab.id as any)}
               className={cn(
                 "flex items-center gap-1.5 px-3 md:px-6 py-2 md:py-2.5 rounded-lg md:rounded-xl text-[9px] md:text-[10px] font-black uppercase tracking-widest transition-all",
                 wikiSubTab === tab.id 
@@ -90,75 +72,9 @@ export default function Wiki() {
       {/* Wiki Content */}
       <div className="min-h-[500px]">
         <Suspense fallback={<div>Carregando...</div>}>
-          {wikiSubTab === 'crystas' && (
-            <div className="space-y-8 max-w-5xl">
-              <div className="flex flex-col md:flex-row gap-6 items-center">
-                <div className="shrink-0 p-4 rounded-2xl bg-white/5 border border-white/5 text-center">
-                  <span className="block text-[10px] font-black uppercase tracking-widest text-white/20 mb-1">Total Xtais</span>
-                  <span className="text-3xl font-black text-red-500 italic">{crystas?.length || 0}</span>
-                </div>
-                <div className="flex-1 w-full relative">
-                  <Filter className="absolute left-4 top-1/2 -translate-y-1/2 text-white/20" size={16} />
-                  <input 
-                    type="text" 
-                    placeholder="Buscar xtal pelo nome..."
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    className="w-full bg-white/5 border border-white/10 rounded-xl py-3 pl-12 pr-4 text-sm focus:outline-none focus:border-red-500/50 transition-colors"
-                  />
-                </div>
-                <div className="flex flex-wrap gap-2 justify-center">
-                  {crystaTypes.map(type => (
-                    <button
-                      key={type}
-                      onClick={() => setFilterCrysta(type)}
-                      className={cn(
-                        "px-4 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all border",
-                        filterCrysta === type 
-                          ? "bg-red-600 text-white border-red-600 shadow-[0_0_15px_rgba(220,38,38,0.3)]" 
-                          : "bg-white/5 text-white/40 border-white/5 hover:text-white hover:bg-white/10"
-                      )}
-                    >
-                      {type}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                {filteredCrystas.length > 0 ? (
-                  filteredCrystas.map((crysta, idx) => (
-                    <div 
-                      key={idx} 
-                      className="p-5 rounded-2xl bg-white/5 border border-white/5 hover:border-red-500/30 transition-all group flex items-center justify-between"
-                    >
-                      <div>
-                        <h4 className="text-sm font-black text-white uppercase tracking-tight group-hover:text-red-500 transition-colors">
-                          {crysta.name}
-                        </h4>
-                        <span className="text-[9px] font-bold text-white/20 uppercase tracking-[0.2em]">
-                          {crysta.type}
-                        </span>
-                      </div>
-                      <div className={cn(
-                        "w-8 h-8 rounded-lg flex items-center justify-center text-xs font-black",
-                        crysta.type === 'Weapon' ? 'bg-red-500/10 text-red-500' :
-                        crysta.type === 'Armor' ? 'bg-blue-500/10 text-blue-500' :
-                        crysta.type === 'Additional' ? 'bg-purple-500/10 text-purple-500' :
-                        crysta.type === 'Special' ? 'bg-yellow-500/10 text-yellow-500' :
-                        crysta.type === 'Enhancer' ? 'bg-green-500/10 text-green-500' :
-                        'bg-zinc-500/10 text-zinc-500'
-                      )}>
-                        {crysta.type.charAt(0)}
-                      </div>
-                    </div>
-                  ))
-                ) : (
-                  <div className="col-span-full py-20 text-center border border-dashed border-white/10 rounded-3xl">
-                     <p className="text-white/20 uppercase font-black tracking-widest text-sm">Nenhum xtal encontrado.</p>
-                  </div>
-                )}
-              </div>
+          {wikiSubTab === 'mobs' && (
+            <div className="py-20 text-center border border-dashed border-white/10 rounded-3xl">
+               <p className="text-white/20 uppercase font-black tracking-widest text-sm">Base de dados de Mobs em breve.</p>
             </div>
           )}
 
