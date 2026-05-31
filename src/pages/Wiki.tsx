@@ -1,7 +1,7 @@
 import { useState, useMemo, lazy, Suspense } from 'react'
 import { useGuildData } from '../hooks/useGuildData'
 import { motion } from 'framer-motion'
-import { BookOpen, Utensils, Users, ScrollText, Hammer, Filter, Gem } from 'lucide-react'
+import { BookOpen, Utensils, Users, ScrollText, Hammer, Filter } from 'lucide-react'
 import { cn } from '../lib/utils'
 
 const FoodItem = lazy(() => import('../components/FoodItem').then(m => ({ default: m.FoodItem })))

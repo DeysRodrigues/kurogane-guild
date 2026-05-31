@@ -6,7 +6,6 @@ import {
   LayoutDashboard, 
   BookOpen, 
   ScrollText, 
-  Trophy, 
   Menu, 
   Image as ImageIcon,
   X as CloseIcon 

@@ -1,12 +1,11 @@
+import React from 'react'
 import { motion } from 'framer-motion'
 import { 
   Hammer, 
   FlaskConical, 
   ChevronRight, 
   BookOpen, 
-  UserCircle, 
   Zap, 
-  ShieldCheck, 
   ExternalLink, 
   ArrowLeft,
   Calendar,
@@ -24,7 +23,7 @@ interface TutorialData {
   date: string;
   readTime: string;
   icon: typeof Hammer;
-  content: JSX.Element;
+  content: React.ReactNode;
 }
 
 const tutorialsData: Record<string, TutorialData> = {
